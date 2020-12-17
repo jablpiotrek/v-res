@@ -1,7 +1,7 @@
 <template>
   <div class="item">
     <span class="item__name"> {{name}} </span>
-    {{ this.$store.getters.dayItemReservations(day, id) }}
+    {{ dayItemReservations(day, id) }}
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
       type: Date,
     },
   },
-  methods: {
+  computed: {
     ...mapGetters(['dayItemReservations']),
   },
 };

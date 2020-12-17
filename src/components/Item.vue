@@ -1,15 +1,26 @@
 <template>
   <div class="item">
     <span class="item__name"> {{name}} </span>
-    {{ dayItemReservations(day, id) }}
+    <ul class="item__reservations">
+      <li class="item__reservation" v-for="res in reservations" :key="res.id">
+        <reservation
+          :from="res.from"
+          :to="res.to"
+          :id="res.id"
+        />
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
+import Reservation from '@/components/Reservation.vue';
+
 export default {
   name: 'Item',
+  components: { Reservation },
   props: {
     id: {
       reuired: true,
@@ -30,6 +41,17 @@ export default {
   },
   computed: {
     ...mapGetters(['dayItemReservations']),
+    reservations() {
+      const { day, id } = this;
+
+      return this.dayItemReservations(day, id);
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .item {
+    display: flex;
+  }
+</style>

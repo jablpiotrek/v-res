@@ -9,6 +9,24 @@ export default new Vuex.Store({
   state: {
     reservations: [
       {
+        id: 9871234791,
+        itemId: 1,
+        from: 1607958000000,
+        to: 1607965200000,
+        name: 'Foo Bar',
+        telephone: '123456789',
+        extraInfo: '',
+      },
+      {
+        id: 9871234790,
+        itemId: 1,
+        from: 1607943600000,
+        to: 1607950800000,
+        name: 'Foo Bar',
+        telephone: '123456789',
+        extraInfo: '',
+      },
+      {
         id: 9871234789,
         itemId: 1,
         from: 1607936400000,
@@ -39,7 +57,7 @@ export default new Vuex.Store({
         id: 9871234786,
         itemId: 2,
         from: 1608289200000,
-        to: 1608296400000,
+        to: 1608292800000,
         name: 'Foo Bar',
         telephone: '123456789',
         extraInfo: '',

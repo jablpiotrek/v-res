@@ -1,25 +1,30 @@
 <template>
   <div class="day">
-    <span :class="`day__date ${showDate ? 'day__date--show' : ''}`">{{ formattedDate }}</span>
-    <div>
-      DAILY_RES
-    </div>
+    <span class="day__date">{{ formattedDate }}</span>
+    <ul class="day__items">
+      <li class="day__item" v-for="item in items" :key="item.id">
+        <item :name="item.name" :id="item.id" :specs="item.spec"/>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import format from 'date-fns/format';
 
+import Item from '@/components/Item.vue';
+
 export default {
   name: 'Day',
+  components: { Item },
   props: {
     date: {
       required: true,
       type: Date,
     },
-    showDate: {
+    items: {
       required: true,
-      type: Boolean,
+      type: Array,
     },
   },
   computed: {
@@ -29,14 +34,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-  .day {
-    &__date {
-      display: none;
-      &--show {
-        display: block;
-      }
-    }
-  }
-</style>

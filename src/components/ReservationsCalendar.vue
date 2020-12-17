@@ -1,27 +1,22 @@
 <template>
-  <div>
+  <div class="reservations-calendar">
     <h2>{{`${startDate} - ${endDate}`}}</h2>
-    <item
-      v-for="(item, index)  in items"
-      :name="item.name"
-      :id="item.id"
-      :key="item.id"
-      :specs="item.specs"
-      :week-start="weekStart"
-      :show-dates="index === 0"
-    />
+    <div class="reservations-calendar__days">
+      <day v-for="(day, index) in days" :key="index" :date="day" :items="items"/>
+    </div>
   </div>
 </template>
 
 <script>
-import Item from '@/components/Item.vue';
+import Day from '@/components/Day.vue';
 
 import format from 'date-fns/format';
 import addDays from 'date-fns/addDays';
+import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 
 export default {
   name: 'ReservationsCalendar',
-  components: { Item },
+  components: { Day },
   data() {
     return {
       items: [
@@ -39,6 +34,12 @@ export default {
     },
     endDate() {
       return format(addDays(this.weekStart, 6), this.dateFormat);
+    },
+    days() {
+      const start = this.weekStart;
+      const end = addDays(start, 6);
+
+      return eachDayOfInterval({ start, end });
     },
   },
 };

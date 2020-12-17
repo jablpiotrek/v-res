@@ -19,14 +19,18 @@ export default {
   components: { Day },
   data() {
     return {
-      items: [
-        { id: 1, name: 'Item 1', specs: {} },
-        { id: 2, name: 'Item 2', specs: {} },
-        { id: 3, name: 'Item 3', specs: {} },
-      ],
-      weekStart: 1607900400000,
       dateFormat: 'dd/MM/yyyy',
     };
+  },
+  props: {
+    items: {
+      required: true,
+      type: Array,
+    },
+    weekStart: {
+      required: true,
+      type: Number,
+    },
   },
   computed: {
     startDate() {

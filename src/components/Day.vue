@@ -3,7 +3,7 @@
     <span class="day__date">{{ formattedDate }}</span>
     <ul class="day__items">
       <li class="day__item" v-for="item in items" :key="item.id">
-        <item :name="item.name" :id="item.id" :specs="item.spec"/>
+        <item :name="item.name" :id="item.id" :specs="item.spec" :day="date"/>
       </li>
     </ul>
   </div>

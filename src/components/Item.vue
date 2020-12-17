@@ -1,11 +1,13 @@
 <template>
   <div class="item">
     <span class="item__name"> {{name}} </span>
-    RESERVATIONS
+    {{ this.$store.getters.dayItemReservations(day, id) }}
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Item',
   props: {
@@ -21,6 +23,13 @@ export default {
       default: () => {},
       type: Object,
     },
+    day: {
+      required: true,
+      type: Date,
+    },
+  },
+  methods: {
+    ...mapGetters(['dayItemReservations']),
   },
 };
 </script>

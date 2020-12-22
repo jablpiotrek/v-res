@@ -1,10 +1,13 @@
 {
   "name": "v-res",
   "version": "0.1.0",
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x"
+  },
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve",
-    "start": "node ./src/server/main.js",
+    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
@@ -14,7 +17,6 @@
     "date-fns": "^2.16.1",
     "express": "^4.17.1",
     "register-service-worker": "^1.7.1",
-    "serve-static": "^1.14.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"

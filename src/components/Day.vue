@@ -34,3 +34,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .day {
+    &__items {
+      list-style: none;
+      padding-left: 0;
+    }
+  }
+</style>

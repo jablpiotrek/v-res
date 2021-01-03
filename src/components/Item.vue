@@ -75,9 +75,7 @@ export default {
 
       const startColumn = 1 + (hourStart - this.dayStart) / this.dayStep;
       const endColumn = startColumn + length / this.dayStep;
-      console.log('length', length);
-      console.log(startColumn);
-      console.log(endColumn);
+
       return `${startColumn}/${endColumn}`;
     },
   },

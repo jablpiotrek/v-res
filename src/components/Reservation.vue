@@ -1,40 +1,33 @@
 <template>
-  <div class="reservation">
+  <div class="reservation" @click="toggleTooltip">
     <span class="reservation__id">{{ `#${id}` }}</span>
-    <span class="reservation__time">{{ time }}</span>
-    <span class="reservation__duration">{{ duration }}</span>
+    <details-tooltip
+      :id="this.id"
+      v-if="showTooltip"
+    />
   </div>
 </template>
 
 <script>
-import format from 'date-fns/format';
-import formatDistanceStrict from 'date-fns/formatDistanceStrict';
+import DetailsTooltip from '@/components/DetailsTooltip.vue';
 
 export default {
   name: 'Reservation',
+  components: { DetailsTooltip },
+  data() {
+    return {
+      showTooltip: false,
+    };
+  },
   props: {
-    from: {
-      required: true,
-      type: Number,
-    },
-    to: {
-      required: true,
-      typ: Number,
-    },
     id: {
       required: true,
-      type: Number,
+      type: String,
     },
   },
-  computed: {
-    time() {
-      const { from, to } = this;
-
-      return `${format(from, 'HH:mm')} - ${format(to, 'HH:mm')}`;
-    },
-    duration() {
-      const { from, to } = this;
-      return formatDistanceStrict(from, to);
+  methods: {
+    toggleTooltip() {
+      this.showTooltip = !this.showTooltip;
     },
   },
 };
@@ -42,6 +35,7 @@ export default {
 
 <style lang="scss" scoped>
   .reservation {
+    position: relative;
     display: flex;
     flex-direction: column;
   }

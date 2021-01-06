@@ -9,8 +9,6 @@
         :style="{gridColumn: calculateResColumn(res.from, res.to)}"
       >
         <reservation
-          :from="res.from"
-          :to="res.to"
           :id="res.id"
         />
       </li>
@@ -39,7 +37,7 @@ export default {
   props: {
     id: {
       reuired: true,
-      type: Number,
+      type: String,
     },
     name: {
       reuired: true,
@@ -99,7 +97,6 @@ export default {
 
     &__reservation {
       grid-row: 1;
-      overflow: hidden;
       border: 1px solid red;
     }
   }

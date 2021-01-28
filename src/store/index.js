@@ -77,8 +77,15 @@ export default new Vuex.Store({
       { id: '2', name: 'Item 2', specs: {} },
       { id: '3', name: 'Item 3', specs: {} },
     ],
+    reservationTooltip: '',
   },
   mutations: {
+    openReservationTooltip(state, reservationId) {
+      state.reservationTooltip = reservationId;
+    },
+    closeReservationTooltip(state) {
+      state.reservationTooltip = '';
+    },
   },
   actions: {
   },

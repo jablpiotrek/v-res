@@ -1,6 +1,6 @@
 <template>
-  <div class="reservation" @click="toggleTooltip">
-    <span class="reservation__id">{{ `#${id}` }}</span>
+  <div :class="`reservation ${highlight ? 'reservation--highlight' : ''}`">
+    <span class="reservation__id" @click="openReservationTooltip(id)">{{ `#${id}` }}</span>
     <details-tooltip
       :id="this.id"
       v-if="showTooltip"
@@ -9,26 +9,30 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 import DetailsTooltip from '@/components/DetailsTooltip.vue';
 
 export default {
   name: 'Reservation',
   components: { DetailsTooltip },
-  data() {
-    return {
-      showTooltip: false,
-    };
-  },
   props: {
     id: {
       required: true,
       type: String,
     },
   },
-  methods: {
-    toggleTooltip() {
-      this.showTooltip = !this.showTooltip;
+  computed: {
+    ...mapState(['reservationTooltip']),
+    showTooltip() {
+      return this.id === this.reservationTooltip;
     },
+    highlight() {
+      return this.showTooltip;
+    },
+  },
+  methods: {
+    ...mapMutations(['openReservationTooltip']),
   },
 };
 </script>
@@ -38,5 +42,10 @@ export default {
     position: relative;
     display: flex;
     flex-direction: column;
+    background: white;
+
+    &--highlight {
+      z-index: 100;
+    }
   }
 </style>

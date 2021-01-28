@@ -16,11 +16,14 @@
       <span class="details-tooltip__property">Telephone:</span>
       <span lass="details-tooltip__value">{{ details.telephone }}</span>
     </div>
+    <button type="button" @click="closeReservationTooltip">Close</button>
+    <div class="details-tooltip__overlay">
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import format from 'date-fns/format';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
 
@@ -47,10 +50,13 @@ export default {
       return this.reservationById(this.id);
     },
   },
+  methods: {
+    ...mapMutations(['closeReservationTooltip']),
+  },
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
  .details-tooltip {
    position: absolute;
    transform: translate(0, -100%);

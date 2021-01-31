@@ -1,48 +1,51 @@
 <template>
-  <div class="reservation">
-    <span class="reservation__id">{{ `#${id}` }}</span>
-    <span class="reservation__time">{{ time }}</span>
-    <span class="reservation__duration">{{ duration }}</span>
+  <div :class="`reservation ${highlight ? 'reservation--highlight' : ''}`">
+    <span class="reservation__id" @click="openReservationTooltip(id)">{{ `#${id}` }}</span>
+    <details-tooltip
+      :id="this.id"
+      v-if="showTooltip"
+    />
   </div>
 </template>
 
 <script>
-import format from 'date-fns/format';
-import formatDistanceStrict from 'date-fns/formatDistanceStrict';
+import { mapState, mapMutations } from 'vuex';
+
+import DetailsTooltip from '@/components/DetailsTooltip.vue';
 
 export default {
   name: 'Reservation',
+  components: { DetailsTooltip },
   props: {
-    from: {
-      required: true,
-      type: Number,
-    },
-    to: {
-      required: true,
-      typ: Number,
-    },
     id: {
       required: true,
-      type: Number,
+      type: String,
     },
   },
   computed: {
-    time() {
-      const { from, to } = this;
-
-      return `${format(from, 'HH:mm')} - ${format(to, 'HH:mm')}`;
+    ...mapState(['reservationTooltip']),
+    showTooltip() {
+      return this.id === this.reservationTooltip;
     },
-    duration() {
-      const { from, to } = this;
-      return formatDistanceStrict(from, to);
+    highlight() {
+      return this.showTooltip;
     },
+  },
+  methods: {
+    ...mapMutations(['openReservationTooltip']),
   },
 };
 </script>
 
 <style lang="scss" scoped>
   .reservation {
+    position: relative;
     display: flex;
     flex-direction: column;
+    background: white;
+
+    &--highlight {
+      z-index: 100;
+    }
   }
 </style>

@@ -42,10 +42,10 @@ export default {
     position: relative;
     display: flex;
     flex-direction: column;
-    background: white;
+    z-index: 100;
 
     &--highlight {
-      z-index: 100;
+      background: white;
     }
   }
 </style>

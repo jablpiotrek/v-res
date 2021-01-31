@@ -16,7 +16,8 @@
       <span class="details-tooltip__property">Telephone:</span>
       <span lass="details-tooltip__value">{{ details.telephone }}</span>
     </div>
-    <button type="button" @click="closeReservationTooltip">Close</button>
+    <button type="button" @click="closeReservationTooltip"><x-circle-icon /></button>
+
     <div class="details-tooltip__overlay">
     </div>
   </div>
@@ -24,11 +25,16 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+
 import format from 'date-fns/format';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
+import { XCircleIcon } from 'vue-feather-icons';
 
 export default {
   name: 'DetailsTooltip',
+  components: {
+    XCircleIcon,
+  },
   props: {
     id: {
       type: String,

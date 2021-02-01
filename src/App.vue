@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <router-view/>
-    <div @click="closeReservationTooltip" v-if="showOverlay" class="app__overlay"></div>
+    <transition name="app__overlay-transition">
+      <div @click="closeReservationTooltip" v-if="showOverlay" class="app__overlay"></div>
+    </transition>
   </div>
 </template>
 
@@ -30,16 +32,34 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .app {
+
     &__overlay {
-      background: rgba(41, 41, 41, 0.4);
+      background: $overlay;
       position: fixed;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       z-index: 10;
+
+      &-transition {
+        &-enter,
+        &-leave-to {
+          background-color: transparent;
+        }
+
+        &-leave,
+        &-enter-to {
+          background-color: $overlay;
+        }
+
+        &-enter-active,
+        &-leave-active {
+          @include transition(background-color);
+        }
+      }
     }
   }
 </style>

@@ -95,5 +95,8 @@ export default new Vuex.Store({
       .filter((reservation) => (reservation.itemId === itemId))),
     reservationById: (state) => (reservationId) => (state.reservations
       .find((reservation) => (reservation.id === reservationId))),
+    noReservationTooltip(state) {
+      return !state.reservationTooltip;
+    },
   },
 });

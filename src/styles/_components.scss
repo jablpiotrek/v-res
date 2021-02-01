@@ -1,0 +1,11 @@
+%button {
+    background: none;
+    border: 0;
+    color: $secondary;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+        color: $primary;
+    }
+}

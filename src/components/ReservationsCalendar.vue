@@ -1,6 +1,6 @@
 <template>
   <div class="reservations-calendar">
-    <h2>{{`${startDate} - ${endDate}`}}</h2>
+    <h2 class="reservations-calendar__dates">{{`${startDate} - ${endDate}`}}</h2>
     <div class="reservations-calendar__days">
       <day v-for="(day, index) in days" :key="index" :date="day" :items="items"/>
     </div>
@@ -48,3 +48,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .reservations-calendar {
+    &__dates {
+      margin-bottom: $v-big;
+      color: $secondary;
+      text-align: center;
+    }
+  }
+</style>

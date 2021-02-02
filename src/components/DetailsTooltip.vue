@@ -1,5 +1,5 @@
 <template>
-  <div class="details-tooltip">
+  <div class="details-tooltip" v-click-outside="closeReservationTooltip">
     <button type="button" class="details-tooltip__close" @click="closeReservationTooltip">
       <x-circle-icon />
     </button>
@@ -69,6 +69,7 @@ export default {
 <style lang="scss" scoped>
   .details-tooltip {
     @include border($secondary, $v-small);
+    @include shadow;
 
     position: absolute;
     padding: $medium;
@@ -78,6 +79,7 @@ export default {
     background: $white;
     width: 240px;
     border-radius: $small;
+    z-index: $high;
 
     &__row {
       border-bottom: 1px solid $gray-dark;

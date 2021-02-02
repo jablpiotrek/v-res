@@ -34,4 +34,6 @@
     font-weight: $weight;
 }
 
-
+@mixin shadow($color: $secondaryTransparent) {
+    box-shadow: 0px 0px 20px 0px $color;
+}

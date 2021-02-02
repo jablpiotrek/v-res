@@ -1,5 +1,5 @@
 <template>
-  <div class="reservation">
+  <div :class="`reservation reservation${showTooltip ? '--highlight' : ''}`">
     <div class="reservation__area"
     @click="openReservationTooltip(id)"
     @mouseover="reveal()"
@@ -11,10 +11,6 @@
     <details-tooltip
       :id="this.id"
       v-if="showTooltip"
-    />
-    <div
-      @click="openReservationTooltip(id)"
-      :class="`reservation__overlay reservation__overlay${highlight ? '--revealed' : ''}`"
     />
   </div>
 </template>
@@ -46,9 +42,6 @@ export default {
     showTooltip() {
       return this.id === this.reservationTooltip;
     },
-    highlight() {
-      return this.showTooltip || this.noReservationTooltip || this.revealed;
-    },
     time() {
       const { from, to } = this.reservationById(this.id);
 
@@ -57,12 +50,6 @@ export default {
   },
   methods: {
     ...mapMutations(['openReservationTooltip']),
-    reveal() {
-      this.revealed = true;
-    },
-    hide() {
-      this.revealed = false;
-    },
   },
 };
 </script>
@@ -73,9 +60,6 @@ export default {
 
     position: relative;
     height: 100%;
-
-    z-index: $highest;
-    transform: translateZ(0);
 
     &__area {
       @include flexCenterCenter;
@@ -110,7 +94,7 @@ export default {
     }
 
     &--highlight {
-      filter: brightness(1);
+      @include shadow;
     }
 
     &__from-to {

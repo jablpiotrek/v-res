@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <router-view/>
     <transition name="app__overlay-transition">
-      <div @click="closeReservationTooltip" v-if="showOverlay" class="app__overlay"></div>
+      <div v-if="showOverlay" class="app__overlay"></div>
     </transition>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
   computed: {
     ...mapState(['reservationTooltip']),
     showOverlay() {
-      return !!this.reservationTooltip;
+      return false;
     },
   },
   methods: {
@@ -34,6 +34,7 @@ export default {
 
 <style lang="scss">
   .app {
+    padding: 0 $medium;
 
     &__overlay {
       background: $overlay;
@@ -42,7 +43,7 @@ export default {
       top: 0;
       width: 100%;
       height: 100%;
-      z-index: 10;
+      z-index: $high;
 
       &-transition {
         &-enter,

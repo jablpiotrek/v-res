@@ -1,0 +1,14 @@
+@import './_colors.scss';
+@import './_mixins.scss';
+@import './_sizes.scss';
+@import './z-indexes';
+@import './fonts';
+@import './components';
+
+h1, h2, h3, h4, h5, h6, p, a, button, span {
+    @include font();
+}
+
+body, html {
+    @include paddingMarginClear;
+}

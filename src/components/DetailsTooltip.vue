@@ -1,34 +1,44 @@
 <template>
-  <div class="details-tooltip">
-    <div class="details-tooltip__row">
-      <span class="details-tooltip__property">id:</span>
-      <span lass="details-tooltip__value">{{ id }}</span>
+  <div class="details-tooltip" v-click-outside="closeReservationTooltip">
+    <button type="button" class="details-tooltip__close" @click="closeReservationTooltip">
+      <x-circle-icon />
+    </button>
+    <div class="details-tooltip__row" v-clipboard:copy="id">
+      <span class="details-tooltip__property">Res. ID:</span>
+      <span class="details-tooltip__value">{{ id }}</span>
+      <copy-icon class="details-tooltip__copy"  size="18" />
     </div>
-    <div class="details-tooltip__row">
+    <div class="details-tooltip__row" v-clipboard:copy="details.name">
       <span class="details-tooltip__property">Name:</span>
-      <span lass="details-tooltip__value">{{ details.name }}</span>
+      <span class="details-tooltip__value">{{ details.name }}</span>
+      <copy-icon class="details-tooltip__copy" size="18" />
     </div>
-    <div class="details-tooltip__row">
+    <div class="details-tooltip__row" v-clipboard:copy="time">
       <span class="details-tooltip__property">Time:</span>
-      <span lass="details-tooltip__value">{{ time }}</span>
+      <span class="details-tooltip__value">{{ time }}</span>
+      <copy-icon  class="details-tooltip__copy"  size="18" />
     </div>
-    <div class="details-tooltip__row">
+    <div class="details-tooltip__row"  v-clipboard:copy="details.telephone">
       <span class="details-tooltip__property">Telephone:</span>
-      <span lass="details-tooltip__value">{{ details.telephone }}</span>
-    </div>
-    <button type="button" @click="closeReservationTooltip">Close</button>
-    <div class="details-tooltip__overlay">
+      <span class="details-tooltip__value">{{ details.telephone }}</span>
+      <copy-icon class="details-tooltip__copy" size="18" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+
 import format from 'date-fns/format';
 import formatDistanceStrict from 'date-fns/formatDistanceStrict';
+import { XCircleIcon, CopyIcon } from 'vue-feather-icons';
 
 export default {
   name: 'DetailsTooltip',
+  components: {
+    XCircleIcon,
+    CopyIcon,
+  },
   props: {
     id: {
       type: String,
@@ -57,13 +67,61 @@ export default {
 </script>
 
 <style lang="scss" scoped>
- .details-tooltip {
-   position: absolute;
-   transform: translate(0, -100%);
-   left: calc(50% - 90px);
-   top: -16px;
-   border: 1px solid black;
-   background: white;
-   width: 180px;
+  .details-tooltip {
+    @include border($secondary, $v-small);
+    @include shadow;
+
+    position: absolute;
+    padding: $medium;
+    transform: translate(0, -100%);
+    left: calc(50% - 120px);
+    top: -$medium;
+    background: $white;
+    width: 240px;
+    border-radius: $small;
+    z-index: $high;
+
+    &__row {
+      border-bottom: 1px solid $gray-dark;
+      padding: $small 0;
+      cursor: pointer;
+
+      &:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      &:hover,
+      &:active {
+        .details-tooltip__copy {
+          display: inline;
+        }
+      }
+    }
+
+    &__property {
+      color: $secondary;
+      margin-right: $small;
+      font-weight: $fontWeightBold;
+    }
+
+    &__close {
+      @include flexCenterCenter;
+      @include paddingMarginClear;
+      @extend %button;
+
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: $button-height;
+      height: $button-height;
+    }
+
+    &__copy {
+      color: $secondary;
+      margin-bottom: -$small;
+      margin-left: $medium;
+      display: none;
+    }
  }
 </style>

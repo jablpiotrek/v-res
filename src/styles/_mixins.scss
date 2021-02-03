@@ -1,0 +1,39 @@
+@mixin flexCenterCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin paddingMarginClear {
+    padding: 0;
+    margin: 0;
+}
+
+@mixin border($color: $primary, $thickness: 1px, $type: solid) {
+    border: $thickness $type $color;
+}
+
+@mixin hatch($color1: $primary, $color2: $white, $angle: 45deg) {
+    background-image: linear-gradient($angle, $color1 3.13%, $color2 3.13%, $color2 50%, $color2 50%, $color1 53.13%, $color2 53.13%, $color2 100%);
+    background-size: 16.00px 16.00px;
+}
+
+@mixin transition($type: null) {
+    transition: $type 0.2s;
+}
+
+@mixin font($size: null, $color: $primary, $font: $sansSerif, $weight: $fontWeightRegular) {
+    font-family: $sansSerif;
+    color: $color;
+    font-size: $size;
+    font-weight: $weight;
+}
+
+@mixin shadow($color: $secondaryTransparent) {
+    box-shadow: 0px 0px 20px 0px $color;
+}

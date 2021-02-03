@@ -13,10 +13,10 @@
             :id="res.id"
           />
         </li>
-        <div v-if="isToday" class="item__time-mark">
+        <div v-if="isToday" class="item__time-mark" :style="{width: `calc(${dayProgress} - 4px)`}">
           <span class="item__clock" v-if="isFirst">
             <span class="item__clock-time">
-              12:34
+              {{ timeFormatted }}
             </span>
             <corner-down-left-icon class="item__clock-arrow" size="2x"></corner-down-left-icon>
           </span>
@@ -39,12 +39,14 @@ import { mapGetters } from 'vuex';
 
 import Reservation from '@/components/Reservation.vue';
 
+import getMinutes from 'date-fns/getMinutes';
 import getHours from 'date-fns/getHours';
 import addMinutes from 'date-fns/addMinutes';
 import startOfHour from 'date-fns/startOfHour';
 import isSameMinute from 'date-fns/isSameMinute';
 import format from 'date-fns/format';
-import differenceInHours from 'date-fns/differenceInHours';
+import differenceInMinutes from 'date-fns/differenceInMinutes';
+import addHours from 'date-fns/addHours';
 
 import { CornerDownLeftIcon } from 'vue-feather-icons';
 
@@ -53,9 +55,10 @@ export default {
   components: { Reservation, CornerDownLeftIcon },
   data() {
     return {
-      dayLength: 8,
-      dayStep: 0.25,
+      dayLength: 10,
+      dayStep: 0.5,
       dayStart: 10,
+      time: new Date(2020, 11, 14, 13, 30, 0),
     };
   },
   props: {
@@ -116,16 +119,43 @@ export default {
 
       return hours;
     },
+    timeFormatted() {
+      return format(this.time, 'HH:mm');
+    },
+    dayProgress() {
+      const {
+        dayLength: length, dayStart: start, time, day,
+      } = this;
+
+      const progress = Math.round(differenceInMinutes(time, addHours(day, start)) / (length * 0.6));
+
+      if (progress > 100) {
+        return '100%';
+      }
+
+      if (progress < 0) {
+        return '0%';
+      }
+
+      return `${progress}%`;
+    },
+  },
+  created() {
+    this.time = this.getCurrentTime();
   },
   methods: {
     calculateResColumn(from, to) {
-      const hourStart = getHours(from);
-      const length = differenceInHours(to, from);
+      const hourStart = getHours(from) + getMinutes(from) / 60;
+      const length = differenceInMinutes(to, from) / 60;
 
-      const startColumn = 1 + (hourStart - this.dayStart) / this.dayStep;
-      const endColumn = startColumn + length / this.dayStep;
+      const startColumn = Math.round(1 + (hourStart - this.dayStart) / this.dayStep);
+      const endColumn = Math.round(startColumn + length / this.dayStep);
 
       return `${startColumn}/${endColumn}`;
+    },
+    getCurrentTime() {
+      const now = new Date();
+      return new Date(2020, 11, 14, now.getHours(), now.getMinutes());
     },
   },
 };
@@ -208,7 +238,6 @@ export default {
       top: 0;
       border: 2px solid $secondary;
       position: absolute;
-      width: calc(18% - 6px);
       background-color: $secondaryTransparent;
       pointer-events: none;
     }

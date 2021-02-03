@@ -2,8 +2,6 @@
   <div :class="`reservation reservation${showTooltip ? '--highlight' : ''}`">
     <div class="reservation__area"
     @click="openReservationTooltip(id)"
-    @mouseover="reveal()"
-    @mouseleave="hide()"
   >
       <span class="reservation__id">{{ `#${id}` }}</span>
       <span class="reservation__from-to"> {{ time }} </span>
@@ -90,7 +88,7 @@ export default {
     }
 
     &__id {
-      font-size: $medium;
+      font-size: $desc-text;
     }
 
     &--highlight {
